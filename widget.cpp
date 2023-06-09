@@ -1,6 +1,6 @@
 #include "widget.h"
 #include "ui_widget.h"
-#include "floatingmenu.h"
+#include "floatingmenufactory.h"
 
 #include <QTimer>
 
@@ -10,7 +10,7 @@ Widget::Widget(QWidget *parent)
 {
     ui->setupUi(this);
 
-    FloatingMenu *s=new FloatingMenu();
+    FloatingMenuFactory *s=new FloatingMenuFactory();
 
 }
 

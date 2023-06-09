@@ -11,14 +11,17 @@
 
 #include "circlebutton.h"
 
-class FloatingMenu : public QObject
+class FloatingMenuFactory : public QObject
 {
     Q_OBJECT
 public:
-    explicit FloatingMenu(QObject *parent = nullptr);
+    explicit FloatingMenuFactory(QObject *parent = nullptr);
 
-    //菜单动作按钮
-    void addAction(const QStringList &titleAction);
+    void setMenuText(const QString &text);
+
+    void setActionTexts(const QStringList &titleAction);
+
+    CircleButton* createFloatingMenu();
 signals:
 
 public slots:
@@ -35,6 +38,10 @@ private:
 
     //初始化
 
+    //菜单动作按钮
+    void addAction(const QStringList &titleAction);
+
+
 private:
     CircleButton *m_pButMenu;//主菜单按钮
     QList<CircleButton *> m_butActs;
@@ -50,6 +57,10 @@ private:
     QState *m_pCenteredState=nullptr;
     //移动状态
     QState *m_pMoveState=nullptr;
+
+    QString m_MenuText;
+
+    QStringList m_ActionTexts;
 
 };
 

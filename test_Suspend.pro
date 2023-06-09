@@ -17,12 +17,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     circlebutton.cpp \
-    floatingmenu.cpp \
+    floatingmenufactory.cpp \
     main.cpp
 
 HEADERS += \
     circlebutton.h \
-    floatingmenu.h
+    floatingmenufactory.h
 
 FORMS +=
 

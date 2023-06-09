@@ -1,11 +1,18 @@
 #include "circlebutton.h"
 
 
-CircleButton::CircleButton(QWidget *parent)
-    : QPushButton(parent)
+CircleButton::CircleButton(CircleButton* parentBut, QWidget *parent)
+    : QPushButton(parent),
+      m_pParentBut(parentBut)
 {
     setWindowFlags(this->windowFlags() | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint | Qt::SubWindow);
     setAttribute(Qt::WA_TranslucentBackground);
+
+
+    if(m_pParentBut!=nullptr)
+    {
+        connect(m_pParentBut,&CircleButton::closed,this,&QPushButton::close);
+    }
 
 //        QGraphicsDropShadowEffect *shadow = new QGraphicsDropShadowEffect(this);
 //        shadow->setBlurRadius(10);
@@ -149,5 +156,17 @@ void CircleButton::paintEvent(QPaintEvent *event)
 //        for (int i = 17; i < 80; i++) {
 //            painter.setBrush(QColor(0, 0, 0, (80-i)/80*255));
 //            painter.drawEllipse(rect().adjusted(i, i, -i, -i));
-//        }
+    //        }
+}
+
+void CircleButton::contextMenuEvent(QContextMenuEvent *event)
+{
+    if(m_pParentBut==nullptr)
+    {
+        QMenu menu(this);
+        QAction *closeAction = menu.addAction("¹Ø±Õ");
+        connect(closeAction, &QAction::triggered, this, &QPushButton::close);
+        connect(closeAction, &QAction::triggered, [this](){emit closed();});
+        menu.exec(event->globalPos());
+    }
 }

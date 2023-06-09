@@ -1,14 +1,30 @@
-#include "floatingmenu.h"
+#include "floatingmenufactory.h"
 
-FloatingMenu::FloatingMenu(QObject *parent) : QObject(parent)
+FloatingMenuFactory::FloatingMenuFactory(QObject *parent) : QObject(parent)
+{
+
+
+}
+
+void FloatingMenuFactory::setMenuText(const QString &text)
+{
+    m_MenuText=text;
+}
+
+void FloatingMenuFactory::setActionTexts(const QStringList &titleAction)
+{
+    m_ActionTexts=titleAction;
+}
+
+CircleButton *FloatingMenuFactory::createFloatingMenu()
 {
     m_pButMenu=new CircleButton();
-    m_pButMenu->setText("测试\n按钮");
+    m_pButMenu->setText(m_MenuText);
     m_pButMenu->setFixedSize(80,80);
     m_pButMenu->show();
 
     //子菜单个数及显示文字
-    addAction(QStringList{"1","2","3","4","5"});
+    addAction(m_ActionTexts);
 
     initSates();
 
@@ -18,19 +34,12 @@ FloatingMenu::FloatingMenu(QObject *parent) : QObject(parent)
 
     states->start();
 
+    m_pButMenu->m_butActs=m_butActs;
+
+    return m_pButMenu;
 }
 
-void FloatingMenu::addAction(const QStringList &titleAction)
-{
-    for (QString title : titleAction) {
-        CircleButton *item = new CircleButton();
-        item->setText(title);
-        m_butActs << item;
-        item->show();
-    }
-}
-
-void FloatingMenu::initSates()
+void FloatingMenuFactory::initSates()
 {
 
     m_pRootState = new QState();
@@ -52,7 +61,7 @@ void FloatingMenu::initSates()
     }
 }
 
-void FloatingMenu::initSateMachine()
+void FloatingMenuFactory::initSateMachine()
 {
     states=new  QStateMachine(this) ;
     states->addState(m_pRootState);
@@ -60,7 +69,7 @@ void FloatingMenu::initSateMachine()
     m_pRootState->setInitialState(m_pCenteredState);
 }
 
-void FloatingMenu::initAnimation()
+void FloatingMenuFactory::initAnimation()
 {
     QParallelAnimationGroup *group = new QParallelAnimationGroup;
     for (int i = 0; i < m_butActs.count(); ++i) {
@@ -116,4 +125,14 @@ void FloatingMenu::initAnimation()
 
     });
 
+}
+
+void FloatingMenuFactory::addAction(const QStringList &titleAction)
+{
+    for (QString title : titleAction) {
+        CircleButton *item = new CircleButton(m_pButMenu);
+        item->setText(title);
+        m_butActs << item;
+        item->show();
+    }
 }

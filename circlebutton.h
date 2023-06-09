@@ -13,6 +13,8 @@
 #include <QPushButton>
 #include <QObject>
 #include <QPointF>
+#include <QAction>
+#include <QMenu>
 
 #pragma execution_character_set("utf-8")
 
@@ -24,13 +26,17 @@ class CircleButton : public QPushButton
 public:
     Q_PROPERTY(QPoint pos READ pos WRITE move)
 
-    CircleButton(QWidget *parent = nullptr);
+    CircleButton(CircleButton* parentBut=nullptr, QWidget *parent = nullptr);
 
     void setText(const QString &text);
+
+    QList<CircleButton *> m_butActs;
+
 
 signals:
     void moving(QPoint);//移动中信号
     void moved();//已经移动信号
+    void closed();
 
 
 protected:
@@ -42,6 +48,7 @@ protected:
 
     void paintEvent(QPaintEvent *event) override;
 
+    void contextMenuEvent(QContextMenuEvent *event) override;
 public:
     bool m_isExpand = false;
 
@@ -49,11 +56,13 @@ public:
 private:
     bool m_pressed = false;
     bool m_isMoved = false;
+    CircleButton *m_pParentBut = nullptr;
 
     QPoint m_pressPos;//点击相对于按钮的位置
     QPoint m_pressGlobalPos;//点击相对于全局的位置
 
     QString m_text="";
+
 
 
 };
