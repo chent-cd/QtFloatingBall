@@ -17,15 +17,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     circlebutton.cpp \
-    main.cpp \
-    widget.cpp
+    floatingmenu.cpp \
+    main.cpp
 
 HEADERS += \
     circlebutton.h \
-    widget.h
+    floatingmenu.h
 
-FORMS += \
-    widget.ui
+FORMS +=
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -21,8 +21,6 @@ public:
     Widget(QWidget *parent = nullptr);
     ~Widget();
 
-    int x=1;
-
 private:
     Ui::Widget *ui;
 };

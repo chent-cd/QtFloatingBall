@@ -4,7 +4,7 @@
 CircleButton::CircleButton(QWidget *parent)
     : QPushButton(parent)
 {
-    setWindowFlags(this->windowFlags() | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
+    setWindowFlags(this->windowFlags() | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint | Qt::SubWindow);
     setAttribute(Qt::WA_TranslucentBackground);
 
 //        QGraphicsDropShadowEffect *shadow = new QGraphicsDropShadowEffect(this);

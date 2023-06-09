@@ -2,7 +2,7 @@
 
 #include <QApplication>
 
-#include "circlebutton.h"
+#include "floatingmenu.h"
 
 #pragma execution_character_set("utf-8")
 
@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    Widget w;
+    FloatingMenu w;
 //    w.show();
 
     return a.exec();
