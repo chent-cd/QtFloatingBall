@@ -36,7 +36,23 @@ CircleButton *FloatingMenuFactory::createFloatingMenu()
 
     m_pButMenu->m_butActs=m_butActs;
 
+    connect(m_pButMenu, &CircleButton::showed, this, &FloatingMenuFactory::parentButShow);
+
     return m_pButMenu;
+}
+
+void FloatingMenuFactory::parentButShow()
+{
+//    if(m_pButMenu->m_isExpand)
+//    {
+//        m_pButMenu->click();
+//    }
+    qDebug()<<"°´Å¥Õ¹¿ª×´Ì¬"<<m_pButMenu->m_isExpand;
+    for (int i = 0; i < m_butActs.count(); ++i) {
+        CircleButton *item = m_butActs.at(i);
+        item->show();
+    }
+
 }
 
 void FloatingMenuFactory::initSates()

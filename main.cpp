@@ -15,10 +15,23 @@ int main(int argc, char *argv[])
     w.setMenuText("²âÊÔ\n°´Å¥");
     w.setActionTexts(QStringList{"1","2","3","4","5"});
     CircleButton *but=w.createFloatingMenu();
-//    QObject::connect(but,&CircleButton::closed,[=]()
-//    {
-//        a.quit();
-//    });
+
+    QObject::connect(but,&CircleButton::closed,[&]()
+    {
+        a.quit();
+    });
+
+    for(CircleButton *butSub:but->m_butActs)
+    {
+        QObject::connect(butSub,&CircleButton::clicked,[&]()
+        {
+             qDebug()<<"but1";
+        });
+    }
+    QObject::connect(but,&CircleButton::closed,[&]()
+    {
+        a.quit();
+    });
 //    w.show();
 
     return a.exec();

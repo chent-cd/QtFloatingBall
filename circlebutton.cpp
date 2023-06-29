@@ -12,6 +12,7 @@ CircleButton::CircleButton(CircleButton* parentBut, QWidget *parent)
     if(m_pParentBut!=nullptr)
     {
         connect(m_pParentBut,&CircleButton::closed,this,&QPushButton::close);
+        connect(m_pParentBut,&CircleButton::hided,this,&QPushButton::hide);
     }
 
 //        QGraphicsDropShadowEffect *shadow = new QGraphicsDropShadowEffect(this);
@@ -169,4 +170,25 @@ void CircleButton::contextMenuEvent(QContextMenuEvent *event)
         connect(closeAction, &QAction::triggered, [this](){emit closed();});
         menu.exec(event->globalPos());
     }
+}
+
+void CircleButton::closeEvent(QCloseEvent *event)
+{
+    emit closed();
+}
+
+void CircleButton::hideEvent(QHideEvent *event)
+{
+    emit hided();
+    if(m_isExpand)
+    {
+        emit clicked();
+        m_isExpand=!m_isExpand;
+
+    }
+}
+
+void CircleButton::showEvent(QShowEvent *event)
+{
+    emit showed();
 }

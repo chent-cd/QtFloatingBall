@@ -37,6 +37,8 @@ signals:
     void moving(QPoint);//移动中信号
     void moved();//已经移动信号
     void closed();
+    void hided();//隐藏
+    void showed();//出现
 
 
 protected:
@@ -49,6 +51,12 @@ protected:
     void paintEvent(QPaintEvent *event) override;
 
     void contextMenuEvent(QContextMenuEvent *event) override;
+
+    void closeEvent(QCloseEvent *event) override;
+
+    void hideEvent(QHideEvent *event) override;
+
+    void showEvent(QShowEvent *event) override;
 public:
     bool m_isExpand = false;
 

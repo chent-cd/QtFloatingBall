@@ -25,6 +25,8 @@ public:
 signals:
 
 public slots:
+    //父按钮显示槽
+    void parentButShow();
 
 private:
     //初始化状态
